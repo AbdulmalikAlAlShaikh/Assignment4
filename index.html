@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Personal portfolio of Abdulmalik Al AlShaikh – Software Engineering Student at KFUPM. Explore projects, skills, and contact information."
+    />
+    <meta name="author" content="Abdulmalik Al AlShaikh" />
+    <meta
+      name="keywords"
+      content="portfolio, software engineer, web developer, KFUPM, Abdulmalik"
+    />
+    <title>Abdulmalik Al AlShaikh – Portfolio</title>
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.github.com" />
+    <link rel="preconnect" href="https://dummyjson.com" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- Visitor Welcome Modal -->
+    <div id="visitor-modal" class="visitor-modal" style="display: none">
+      <div class="visitor-modal-content">
+        <h3 class="visitor-modal-title">👋 Welcome!</h3>
+        <p class="visitor-modal-text">
+          What's your name? I'd love to personalize your experience.
+        </p>
+        <input
+          type="text"
+          id="visitor-name-input"
+          class="form-input visitor-name-field"
+          placeholder="Enter your name..."
+          maxlength="30"
+        />
+        <div class="visitor-modal-actions">
+          <button id="visitor-name-submit" class="btn btn-primary">
+            Say Hello
+          </button>
+          <button id="visitor-name-skip" class="btn btn-secondary">
+            Skip
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" class="lightbox-overlay" style="display: none" role="dialog" aria-label="Image preview">
+      <button id="lightbox-close" class="lightbox-close" aria-label="Close image preview">&times;</button>
+      <div class="lightbox-content">
+        <img id="lightbox-img" class="lightbox-img" src="" alt="Project preview" />
+        <p id="lightbox-caption" class="lightbox-caption"></p>
+      </div>
+    </div>
+
+    <!-- Terminal Easter Egg (Ctrl+K) -->
+    <div id="terminal-modal" class="terminal-modal" style="display: none">
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <span class="terminal-title">abdulmalik@portfolio ~ %</span>
+          <button id="terminal-close" class="terminal-close-btn" aria-label="Close terminal">&times;</button>
+        </div>
+        <div id="terminal-output" class="terminal-output">
+          <p class="terminal-line"><span class="terminal-prompt">→</span> Welcome to Abdulmalik's terminal! Type <span class="terminal-highlight">help</span> for commands.</p>
+        </div>
+        <div class="terminal-input-row">
+          <span class="terminal-prompt">→</span>
+          <input
+            type="text"
+            id="terminal-input"
+            class="terminal-input"
+            placeholder="Type a command..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header id="header" class="header">
+      <nav class="nav container">
+        <a href="#home" class="nav-logo">Abdulmalik Al AlShaikh</a>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          id="nav-toggle"
+          class="nav-toggle"
+          aria-label="Toggle navigation menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#github" class="nav-link">GitHub</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <!-- Login/Logout Simulation -->
+          <button
+            id="login-btn"
+            class="btn-login"
+            aria-label="Toggle login state"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span id="login-text">Log In</span>
+          </button>
+
+          <!-- Theme Toggle Button -->
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Toggle dark/light theme"
+          >
+            <svg
+              class="sun-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg
+              class="moon-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section id="home" class="hero section">
+        <!-- Particle Canvas Background -->
+        <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text">
+              <p id="greeting" class="greeting"></p>
+              <h1 class="hero-title">
+                <span class="gradient-text">Abdulmalik Al AlShaikh</span>
+              </h1>
+              <p class="hero-subtitle" id="typing-subtitle"></p>
+              <p class="hero-description">
+                Passionate about software requirements, systems design, data
+                science, and AI. Experienced in building reliable solutions,
+                optimizing technical workflows, and leading teams to deliver
+                results.
+              </p>
+              <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary btn-ripple">View Projects</a>
+                <a href="#contact" class="btn btn-secondary btn-ripple">Get In Touch</a>
+              </div>
+              <div class="social-links">
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/abdulmalikalalshaikh/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="hero-image">
+              <div class="image-wrapper floating-animation">
+                <img
+                  src="assets/images/profile.png"
+                  alt="Abdulmalik Al AlShaikh - Software Engineering Student"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="about section">
+        <div class="container">
+          <div class="section-header-toggle">
+            <h2 class="section-title">About Me</h2>
+            <button class="toggle-section-btn" data-target="about-inner" aria-label="Toggle About section">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div id="about-inner" class="collapsible-content expanded">
+            <div class="about-content">
+              <div class="about-card">
+                <p class="about-text">
+                  Passionate about software requirements, systems design, data
+                  science, and AI. Experienced in building reliable solutions,
+                  optimizing technical workflows, and leading teams to deliver
+                  results.
+                </p>
+                <p class="about-text">
+                  When I'm not coding, you can find me exploring new technologies,
+                  contributing to open-source projects, or learning about the
+                  latest trends in web development and AI.
+                </p>
+              </div>
+
+              <!-- Skills with Animated Progress Bars -->
+              <h3 class="skills-section-title">Technical Skills</h3>
+              <div class="skills-progress-grid">
+                <!-- Programming Languages -->
+                <div class="skill-progress-card" data-animate="true">
+                  <div class="skill-progress-header">
+                    <span class="skill-progress-icon">💻</span>
+                    <h4 class="skill-progress-category">Programming</h4>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Python</span><span class="skill-percent">85%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="85"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Java</span><span class="skill-percent">80%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="80"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>SQL</span><span class="skill-percent">75%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="75"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>MongoDB</span><span class="skill-percent">65%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="65"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Web / Design -->
+                <div class="skill-progress-card" data-animate="true">
+                  <div class="skill-progress-header">
+                    <span class="skill-progress-icon">🎨</span>
+                    <h4 class="skill-progress-category">Web / Design</h4>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>HTML / CSS</span><span class="skill-percent">90%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="90"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>JavaScript</span><span class="skill-percent">80%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="80"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>React</span><span class="skill-percent">60%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="60"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Figma / UI-UX</span><span class="skill-percent">70%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="70"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tools & Frameworks -->
+                <div class="skill-progress-card" data-animate="true">
+                  <div class="skill-progress-header">
+                    <span class="skill-progress-icon">🛠️</span>
+                    <h4 class="skill-progress-category">Tools & Frameworks</h4>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Git / GitHub</span><span class="skill-percent">85%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="85"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Node.js</span><span class="skill-percent">65%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="65"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Agile / Scrum</span><span class="skill-percent">75%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="75"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Jira</span><span class="skill-percent">70%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="70"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Professional Skills -->
+                <div class="skill-progress-card" data-animate="true">
+                  <div class="skill-progress-header">
+                    <span class="skill-progress-icon">💼</span>
+                    <h4 class="skill-progress-category">Professional</h4>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Team Leadership</span><span class="skill-percent">85%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="85"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Problem Solving</span><span class="skill-percent">90%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="90"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Project Management</span><span class="skill-percent">80%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="80"></div>
+                    </div>
+                  </div>
+                  <div class="skill-bar-item">
+                    <div class="skill-bar-label">
+                      <span>Communication</span><span class="skill-percent">85%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                      <div class="skill-bar-fill" data-width="85"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quote Section -->
+      <section id="quote" class="quote section">
+        <div class="container">
+          <h2 class="section-title">Daily Inspiration</h2>
+          <p class="section-subtitle">A random quote to spark your creativity</p>
+          <div class="quote-card">
+            <div id="quote-loading" class="quote-loading">
+              <div class="spinner"></div>
+              <p>Loading quote…</p>
+            </div>
+            <div id="quote-content" class="quote-content" style="display:none;">
+              <blockquote id="quote-text" class="quote-text"></blockquote>
+              <p id="quote-author" class="quote-author"></p>
+            </div>
+            <div id="quote-error" class="quote-error" style="display:none;">
+              <p>😕 Couldn't load a quote. Please try again!</p>
+            </div>
+            <button id="new-quote-btn" class="btn btn-primary btn-new-quote btn-ripple">New Quote</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- GitHub Repositories Section -->
+      <section id="github" class="github section">
+        <div class="container">
+          <h2 class="section-title">GitHub Repositories</h2>
+          <p class="section-subtitle">My latest open-source work, fetched live from GitHub</p>
+
+          <div id="github-loading" class="github-loading">
+            <div class="spinner"></div>
+            <p>Fetching repositories…</p>
+          </div>
+
+          <div id="github-error" class="github-error" style="display: none;">
+            <div class="github-error-content">
+              <p>😕 Couldn't load repositories. Please try again!</p>
+              <button id="github-retry-btn" class="btn btn-primary btn-ripple">Retry</button>
+            </div>
+          </div>
+
+          <div id="github-grid" class="github-grid" style="display: none;"></div>
+
+          <div class="github-actions" style="display: none;" id="github-actions">
+            <button id="github-refresh-btn" class="btn btn-secondary btn-ripple">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects" class="projects section">
+        <div class="container">
+          <h2 class="section-title">My Projects</h2>
+          <p class="section-subtitle">
+            A showcase of my recent work and creations
+          </p>
+
+          <!-- Experience Level Selector -->
+          <div class="experience-selector">
+            <span class="experience-label">Show projects for:</span>
+            <div class="experience-buttons">
+              <button class="experience-btn active" data-level="all">All Levels</button>
+              <button class="experience-btn" data-level="beginner">🟢 Beginner</button>
+              <button class="experience-btn" data-level="intermediate">🟡 Intermediate</button>
+              <button class="experience-btn" data-level="advanced">🔴 Advanced</button>
+            </div>
+          </div>
+
+          <!-- Project Filter Bar -->
+          <div class="filter-bar">
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="design">Design</button>
+              <button class="filter-btn" data-filter="dev">Development</button>
+              <button class="filter-btn" data-filter="uiux">UI/UX</button>
+            </div>
+
+            <div class="sort-wrapper">
+              <label for="project-sort" class="sort-label">Sort by:</label>
+              <select id="project-sort" class="sort-select">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+              </select>
+            </div>
+
+            <div class="search-wrapper">
+              <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="project-search" class="search-input" placeholder="Search projects…" />
+            </div>
+          </div>
+
+          <div class="projects-grid" id="projects-grid">
+            <!-- Project 1 -->
+            <article class="project-card" data-tags="design,uiux,dev" data-date="2025-12-15" data-level="advanced">
+              <div class="project-image lightbox-trigger" data-src="assets/images/kpark-project.png" data-caption="K-Park – Parking Management System">
+                <img
+                  src="assets/images/kpark-project.png"
+                  alt="K-Park Parking Management System"
+                  loading="lazy"
+                />
+                <div class="image-overlay">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-date">Dec 2025</span>
+                  <span class="project-level level-advanced">Advanced</span>
+                </div>
+                <h3 class="project-title">K-Park</h3>
+                <p class="project-description">
+                  Designed a high-fidelity Figma prototype and a comprehensive
+                  SRS with UML models for a real-time KFUPM parking solution.
+                  Defined functional requirements for slot reservation,
+                  special-needs accessibility, and maintenance ticketing to
+                  optimize campus parking management.
+                </p>
+                <div class="project-tags">
+                  <span class="tag">SRS</span>
+                  <span class="tag">UML</span>
+                  <span class="tag">Figma</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-card" data-tags="uiux,dev,design" data-date="2025-10-20" data-level="intermediate">
+              <div class="project-image lightbox-trigger" data-src="assets/images/TaskManager.png" data-caption="Task Manager App">
+                <img
+                  src="assets/images/TaskManager.png"
+                  alt="Task Manager App Project"
+                  loading="lazy"
+                />
+                <div class="image-overlay">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                </div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-date">Oct 2025</span>
+                  <span class="project-level level-intermediate">Intermediate</span>
+                </div>
+                <h3 class="project-title">Task Manager App</h3>
+                <p class="project-description">
+                  A productivity-focused mobile application with a clean,
+                  intuitive interface. Features include task organization,
+                  progress tracking, and customizable themes.
+                </p>
+                <div class="project-tags">
+                  <span class="tag">UI/UX</span>
+                  <span class="tag">Flutter</span>
+                  <span class="tag">Mobile</span>
+                  <span class="tag">Design</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-card" data-tags="dev" data-date="2026-02-10" data-level="advanced">
+              <div class="project-image placeholder-img">
+                <div class="placeholder-icon">🤖</div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-date">Feb 2026</span>
+                  <span class="project-level level-advanced">Advanced</span>
+                </div>
+                <h3 class="project-title">AI Chatbot Assistant</h3>
+                <p class="project-description">
+                  Built an intelligent chatbot using Python and NLP libraries.
+                  Features intent recognition, context management, and
+                  integration with external APIs for real-time data retrieval.
+                </p>
+                <div class="project-tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">NLP</span>
+                  <span class="tag">AI</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 4 -->
+            <article class="project-card" data-tags="dev,design" data-date="2026-03-01" data-level="beginner">
+              <div class="project-image placeholder-img">
+                <div class="placeholder-icon">🌐</div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-date">Mar 2026</span>
+                  <span class="project-level level-beginner">Beginner</span>
+                </div>
+                <h3 class="project-title">Portfolio Website</h3>
+                <p class="project-description">
+                  A responsive personal portfolio website built with HTML, CSS,
+                  and vanilla JavaScript. Features dark/light theme, smooth
+                  animations, and API integrations.
+                </p>
+                <div class="project-tags">
+                  <span class="tag">HTML</span>
+                  <span class="tag">CSS</span>
+                  <span class="tag">JavaScript</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 5 -->
+            <article class="project-card" data-tags="dev,uiux" data-date="2025-08-05" data-level="intermediate">
+              <div class="project-image placeholder-img">
+                <div class="placeholder-icon">📊</div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-date">Aug 2025</span>
+                  <span class="project-level level-intermediate">Intermediate</span>
+                </div>
+                <h3 class="project-title">Data Dashboard</h3>
+                <p class="project-description">
+                  Interactive data visualization dashboard using Chart.js
+                  and REST APIs. Displays real-time analytics with
+                  filterable charts and exportable reports.
+                </p>
+                <div class="project-tags">
+                  <span class="tag">Chart.js</span>
+                  <span class="tag">REST API</span>
+                  <span class="tag">Analytics</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 6 -->
+            <article class="project-card" data-tags="design,uiux" data-date="2025-06-18" data-level="beginner">
+              <div class="project-image placeholder-img">
+                <div class="placeholder-icon">📱</div>
+              </div>
+              <div class="project-content">
+                <div class="project-meta">
+                  <span class="project-date">Jun 2025</span>
+                  <span class="project-level level-beginner">Beginner</span>
+                </div>
+                <h3 class="project-title">Weather App UI</h3>
+                <p class="project-description">
+                  Designed a clean and modern weather application interface
+                  in Figma. Focused on usability, accessibility, and a
+                  vibrant visual identity with animated weather icons.
+                </p>
+                <div class="project-tags">
+                  <span class="tag">Figma</span>
+                  <span class="tag">UI Design</span>
+                  <span class="tag">Mobile</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Empty State -->
+          <div id="projects-empty" class="projects-empty" style="display:none;">
+            <p>🔍 No projects match your search. Try a different keyword!</p>
+          </div>
+
+          <!-- Member-only content (visible when logged in) -->
+          <div id="member-content" class="member-content" style="display: none;">
+            <div class="member-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <span>Member Access: You can see all project source code links when logged in!</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact section">
+        <div class="container">
+          <div class="section-header-toggle">
+            <h2 class="section-title">Get In Touch</h2>
+            <button class="toggle-section-btn" data-target="contact-inner" aria-label="Toggle Contact section">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+          <p class="section-subtitle">
+            Have a question or want to work together?
+          </p>
+
+          <div id="contact-inner" class="collapsible-content expanded">
+            <form id="contact-form" class="contact-form">
+              <div class="form-group">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="form-input"
+                  placeholder="Your Name"
+                  required
+                />
+                <span class="form-error" id="name-error"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="your.email@example.com"
+                  required
+                />
+                <span class="form-error" id="email-error"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  class="form-input form-textarea"
+                  placeholder="Your message here..."
+                  rows="5"
+                  required
+                ></textarea>
+                <span class="form-error" id="message-error"></span>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-submit btn-ripple">
+                Send Message
+              </button>
+              <p id="form-status" class="form-status"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-text">
+          &copy; 2026 Abdulmalik Al AlShaikh. All rights reserved.
+        </p>
+        <p class="footer-hint">
+          <kbd>Ctrl</kbd> + <kbd>K</kbd> to open terminal ✨
+        </p>
+        <div id="visit-timer" class="visit-timer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="visit-timer-text">You've been here for 0s</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
