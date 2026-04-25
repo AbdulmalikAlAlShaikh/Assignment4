@@ -6,7 +6,7 @@ A polished, production-ready personal portfolio web application showcasing full-
 
 ## 🌐 Live Deployment
 
-> **Coming soon** — will be deployed via GitHub Pages / Netlify / Vercel.
+**Live Site**: https://abdulmalikalalshaikh.github.io/Assignment4/
 
 ## 🌟 Features
 
@@ -220,6 +220,11 @@ Tested and working on:
 
 - **[AI Usage Report](docs/ai-usage-report.md)**: Detailed documentation of AI tool usage
 - **[Technical Documentation](docs/technical-documentation.md)**: Architecture and implementation details
+
+
+## 🎬 Presentation
+
+**Video Presentation**: https://kfupmedusa-my.sharepoint.com/:v:/g/personal/s202262200_kfupm_edu_sa/IQAwcjzAdi_CQJzep99nOE4RAW3QlEvDCJ1_YHMCLPp1B_k?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=b8LsPK
 
 ## 👨‍💻 Author
 
